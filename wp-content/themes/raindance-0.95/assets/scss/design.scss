@@ -1,0 +1,73 @@
+@import 'bourbon/bourbon';
+
+/***
+	RAINDANCE DESIGN ELEMENTS
+
+	- FONTS
+	- COLORS
+	- GENERIC ELEMENTS
+	- BUTTONS
+
+***/
+
+
+/* FONTS */
+@include font-face('brandon-regular', '../fonts/brandon-regular/hvd_fonts_-_brandontext-regular-webfont');
+@include font-face('brandon-medium', '../fonts/brandon-medium/BrandonText-Medium');
+@include font-face('brandon-bold', '../fonts/brandon-bold/hvd_fonts_-_brandontext-bold-webfont');
+@include font-face('brandon-black', '../fonts/brandon-black/hvd_fonts_-_brandontext-black-webfont');
+@include font-face('sucrose', '../fonts/sucrose/Sucrose-BoldThree');
+@include font-face('selfie', '../fonts/selfie/Selfie');
+
+$base-font-size: 15px;
+$heading-scale:		8;
+
+
+/* COLORS */
+$white:			#ffffff;
+$ultgray:		#b7b7b7;
+$ltgray:		#686057;
+$darkgray:	#343434;
+$black:			#000000;
+$ltpurple:	#483f94;
+$purple:		#001e5f;
+$tan:				#675f57;
+
+/* GENERIC ELEMENTS */
+body	{ font-family: 'brandon-regular', sans-serif; font-size: $base-font-size; line-height: $base-font-size + $heading-scale; color: $darkgray;
+	background: transparent url('../images/body-bg.jpg') repeat-y center top;
+	#wrapper { background: $white; box-shadow: 0 0 8px rgba(0,0,0,0.3); padding-right: 0; padding-left: 0; }
+}
+
+.alignleft, img.alignleft 		{ float: left; margin: 0 15px 15px 0; }
+.alignright, img.alignright 	{ float: right; margin: 0 0 15px 15px; }
+.aligncenter, img.aligncenter { margin: 0 auto 15px; display: block; }
+.alignnone, img.alignnone 		{ margin: 0 0 15px; float: none; }
+
+
+// Heading Sizes, Margins & Styles
+@for $i from 1 through 6 {
+	h#{$i} {
+		margin-top: 0;
+		font-size: $base-font-size + $heading-scale * (6 - $i);
+		font-family: 'brandon-medium', sans-serif;
+		font-weight: normal;
+		margin-bottom: ($base-font-size + $heading-scale * (6 - $i)) / 2;
+	}
+}
+p { margin-bottom: 1.5em;
+	&:empty { display: none; }
+}
+a { transition: all 666ms cubic-bezier(.215,.61,.355,1); }
+strong { font-weight: normal; font-family: 'brandon-bold', sans-serif; }
+ol,ul 	{ margin: 1.5em 0 1.5em 2em;
+	li 	{ padding: .25em 0; }
+}
+
+/* BUTTONS */
+.btn { border-radius: 4px; text-transform: uppercase; padding-left: 20px; padding-right: 20px; transition: opacity 666ms cubic-bezier(.255,.61,.355,1); display: inline-block;
+	&.purple-btn { color: $white; background: $ltpurple;
+		&:hover  { opacity: .8; }
+	}
+}
+.modal-btn { cursor: pointer; }

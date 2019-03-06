@@ -1,0 +1,152 @@
+/*** CONTACT FORM ***/
+#contactModal, #builderModal {
+	&.modal { background: rgba(0,0,0,.6); }
+	.modal-dialog { width: 70%; margin: 60px auto;
+		.modal-content { border-radius: 0; overflow: auto;
+			.modal-header { border-bottom: none;
+				h2 { font-family: 'selfie', sans-serif; color: $ltpurple; font-size: 4em; }
+				p  { color: $darkgray; margin-bottom: 0; padding-right: 6%; }
+			}
+			.modal-body { padding: 0 25px 25px; float: left; width: 100%;
+				.contact-form {
+					input { margin: 0;
+						&.form-control { border-radius: 0; text-transform: lowercase;}
+					}
+
+					.form-group { float: left; width: 100%; margin-bottom: 15px;
+						label { font-weight: normal; display: block; text-transform: lowercase;
+							&.broker { display: inline; }
+						}
+						input { padding: 4px 8px;
+							&[type='text'],
+							&[type='email'] { border: 1px solid #dcdcdc; }
+						}
+						.one-half { float: left; width: 48%;
+							&.last { float: right; }
+							input, select { width: 100%; }
+
+							.two-third { width: 60%; float: left; }
+							.one-third { width: 35%; float: right; }
+
+							input[type='radio'] { width: 30px; margin-left: -3px; }
+						}
+
+						.full-width {
+							&.form-bottom { text-align: center; }
+							.disclaimer { color: $ltgray; font-size: 0.85em; padding-right: 15%; padding-left: 15%; margin: 25px 0 0; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.broker-fields { display: none; float: left; clear: both; width: 100%;
+	//&.broker-visible { height: 100%; }
+}
+
+.soflow { //Select Field Styles
+   -webkit-appearance: button;
+   -webkit-border-radius: 0;
+   -webkit-box-shadow: none;
+   -webkit-padding-end: 20px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-color: $white;
+   background-image: url('../images/down-arrow.png');
+   background-repeat: no-repeat;
+   background-position: 98% center;
+   border: 1px solid #dcdcdc;
+   color: #555;
+   font-size: inherit;
+   margin: 0;
+   overflow: hidden;
+   padding: 4px 8px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
+   &:after { content: '\f078'; font-family: 'Font Awesome\ 5'; }
+}
+
+// Radio + Checkbox Inputs
+.control { position: relative; display: inline-block; cursor: pointer; margin: 0 15px 0 5px; padding-left: 25px; text-transform: uppercase; font-size: 0.9em;
+	input { position: absolute; z-index: 2; opacity: 0; left: 4px; top: 5px; cursor: pointer;
+		&:checked ~ .control__indicator { background: $ltpurple;
+			&:after { display: block; }
+		}
+		&:disabled ~ .control__indicator { pointer-events: none; opacity: .6; background: $white; }
+	}
+	.control__indicator { position: absolute; top: 2px; left: 0; width: 20px; height: 20px; background: $white; border: 1px solid $ltgray;
+		transition: background 666ms cubic-bezier(.215,.61,.355,1);
+		&:after { position: absolute; display: none; content: ''; }
+	}
+
+	&.control--radio {
+		.control__indicator { border-radius: 50%; }
+	}
+
+	&:hover {
+		input ~ .control__indicator,
+		input:focus ~ .control__indicator { background: $ltpurple; }
+	}
+
+	&.control--checkbox {
+		label { text-transform: capitalize !important; padding-left: 5px; }
+		.control__indicator { border-radius: 4px;
+			&:after { top: 3px; left: 6px; width: 5px; height: 10px; transform: rotate(45deg); border: solid $white; border-width: 0 2px 2px 0; }
+		}
+		input:disabled ~ .control__indicator:after { border-color: $ltpurple; }
+	}
+}
+
+// WP CF7 Styles
+.wpcf7-response-output { clear: both; }
+
+/*==========  Desktop First Method  ==========*/
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}
+
+/* Tablets (iPad Landscape) */
+@media only screen and (max-width : 1024px) {
+	#contactModal,
+	#builderModal {
+		.modal-dialog { width: 90%; margin: 60px auto; }
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 667px) {
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 375px) {
+	#contactModal {
+		.modal-dialog {
+			.modal-content {
+				.modal-body {
+					.contact-form {
+						.form-group {
+							.one-half { width: 100%; margin-bottom: 5px; }
+							.full-width {
+								.disclaimer { padding-right: 0; padding-left: 0; }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
