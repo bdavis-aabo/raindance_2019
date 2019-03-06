@@ -5,6 +5,7 @@ wp-content/backup/*
 wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
+dev/*
 
 
 config.codekit3
