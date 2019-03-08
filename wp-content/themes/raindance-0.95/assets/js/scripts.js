@@ -130,11 +130,11 @@ $(document).ready(function(){
     $('body,html').css('overflow','auto');
   }
 
-	// if(window.location.pathname === '/'){
-	// 	setTimeout(function(){
-	// 		displayLightbox();
-	// 	}, 5000);
-	// }
+ 	if(window.location.pathname === '/'){
+ 		setTimeout(function(){
+ 			displayLightbox();
+ 		}, 5000);
+ 	}
 
   $('.close-btn').click(function(){ closeLightbox(); });
 
