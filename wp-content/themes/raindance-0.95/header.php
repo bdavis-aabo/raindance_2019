@@ -65,7 +65,7 @@
         <div class="container alert-container">
               <div class="alert-box red-bg">
                 <p>
-                  You're invited to our grand opening&nbsp;&nbsp;-&nbsp;&nbsp;<a href="/grand-opening-festival" title="<?php bloginfo('name') ?> - Grand Opening Festival">Check it out here!</a>
+                  You're invited to our grand opening festival&nbsp;&nbsp;-&nbsp;&nbsp;<a href="/grand-opening-festival" title="<?php bloginfo('name') ?> - Grand Opening Festival">Check it out here!</a>
                   <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/wp-content/uploads/2019/03/Raindance_Sweepstakes_Rules.pdf" target="_blank" class="rules"><em>Click for official sweepstakes rules</em></a>
                 </p>
               </div>
