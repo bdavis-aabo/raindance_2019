@@ -4,7 +4,6 @@ if ( !defined( 'ABSPATH' ) ) {
 	die('Un-authorized access!');
 }
 
-
 /**
  * Detect plugin. For use in Admin area only.
  */
@@ -54,12 +53,12 @@ else{
 	//Get search related value
 	$search =  '';
 	if(isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value'])){
-		$search = sanitize_text_field(addslashes($_POST['search_cf7_value']));
+		$search = addslashes(addslashes(htmlspecialchars(sanitize_text_field($_POST['search_cf7_value']))));
 	} 
-
+	
 	//Get all form names which entry store in DB
 	global $wpdb;
-	$sql = sprintf("SELECT `cf7_id` FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` GROUP BY `cf7_id`" );
+	$sql = "SELECT `cf7_id` FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` GROUP BY `cf7_id`";
 	$data = $wpdb->get_results($sql,ARRAY_N);
 	$arr_form_id = array();
 	if(!empty($data)){
@@ -148,8 +147,15 @@ else{
 		//Check search field value empty or not
 		if(isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && empty($_POST['start_date']) && empty($_POST['end_date'])){
 			
-			$query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : ""). " GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT %d,%d) temp_table) ORDER BY " . $cf7d_entry_order_by, $fid, $offset, $items_per_page);
+			$query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+						SELECT * FROM (
+							SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND 
+								`cf7_id` = ".$fid." ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : ""). " 
+								GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+							) 
+						temp_table) ORDER BY " . $cf7d_entry_order_by;
 			$arr_total = $wpdb->get_results("SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = " . (int)$fid . " ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : "")." GROUP BY `data_id`");
+			
 		}
 		//Check search field value empty and date filter active or not
 		else if(isset($_POST['search_cf7_value']) && empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && !empty($_POST['start_date']) && !empty($_POST['end_date']) && $s_date !== false && $e_date !== false){
@@ -163,10 +169,22 @@ else{
 			//Setup date parameter value in query
 			$search_date_query = "AND `name` = 'submit_time' AND value between '".$start_date."' and '".$end_date." 23:59:59'";
 			
-			$query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query."  GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT %d,%d) temp_table) ORDER BY " . $cf7d_entry_order_by, $fid, $offset, $items_per_page);
+			$query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+						SELECT * FROM (
+							SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query."  
+								GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+							) 
+						temp_table) 
+						ORDER BY " . $cf7d_entry_order_by;
 			
 			//Get total entries information
-			$total_query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query."  GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by.") temp_table)  GROUP BY `data_id` ORDER BY " . $cf7d_entry_order_by, $fid);
+			$total_query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+							SELECT * FROM (
+								SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query."  
+									GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by."
+								) 
+							temp_table)  
+							GROUP BY `data_id` ORDER BY " . $cf7d_entry_order_by;
 			
 			$arr_total = $wpdb->get_results($total_query);
 		}
@@ -181,7 +199,9 @@ else{
 			$end_date =  date_format($e_date,"Y-m-d").' 23:59:59';
 			
 			//Get date filter related entries information 
-			$date_query = sprintf("SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '%s' and '%s' GROUP BY `data_id` ORDER BY `data_id` DESC",$fid, $start_date, $end_date);
+			$date_query = "SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` 
+							WHERE 1 = 1 AND `cf7_id` = ".$fid." AND `name` = 'submit_time' AND value between '".$start_date."' and '".$end_date."' 
+							GROUP BY `data_id` ORDER BY `data_id` DESC";
 			
 			$rs_date = $wpdb->get_results($date_query);
 			//Get all entries and setup a string
@@ -194,10 +214,25 @@ else{
 			}
 			
 			//get all entrise information
-			$query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query." ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : ""). " AND data_id IN (".$data_ids.") GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT %d,%d) temp_table) ORDER BY " . $cf7d_entry_order_by, $fid, $offset, $items_per_page); 
+			$query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+						SELECT * FROM (
+							SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` 
+								WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query." ".((!empty($search)) ? "AND 
+								`value` LIKE '%%".$search."%%'" : ""). " AND data_id IN (".$data_ids.") 
+								GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+							) 
+						temp_table) 
+						ORDER BY " . $cf7d_entry_order_by; 
 			
 			//Get total entries information
-			$total_query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query." ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : ""). " AND data_id IN (".$data_ids.") GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." ) temp_table)  GROUP BY `data_id` ORDER BY " . $cf7d_entry_order_by, $fid); 
+			$total_query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+							SELECT * FROM (
+								SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." ".$search_date_query." ".((!empty($search)) ? "AND 
+									`value` LIKE '%%".$search."%%'" : ""). " AND data_id IN (".$data_ids.") 
+								GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." 
+								) 
+							temp_table)  
+							GROUP BY `data_id` ORDER BY " . $cf7d_entry_order_by;
 			
 			$arr_total = $wpdb->get_results($total_query);
 			
@@ -205,7 +240,42 @@ else{
 		//Call when any filter not active on Listing screen
 		else{
 			
-			$query = sprintf("SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT %d,%d) temp_table) ORDER BY " . $cf7d_entry_order_by, $fid, $offset, $items_per_page);
+			if(isset($_GET["orderby"]) && isset($_GET["order"]) && !empty($_GET["orderby"]) && !empty($_GET["order"])){
+				$qry = "SELECT `data_id` FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND `name` = '".$_GET['orderby']."' AND data_id IN(
+										SELECT * FROM (
+											SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." 
+											GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+										) 
+										temp_table) 
+										ORDER BY `value` ".$_GET["order"]."," . $cf7d_entry_order_by;
+				$idVals = $wpdb->get_results ( $qry );
+				$id_val = array();
+				if(!empty($idVals)){
+					foreach($idVals as $o_id){
+						$id_val[] = $o_id->data_id;
+					}
+				}
+				
+				$query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+							SELECT * FROM (
+								SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." 
+									GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+								) 
+							temp_table) 
+							ORDER BY FIELD(`data_id`, ". implode(',',$id_val) ." )";
+				
+			}
+			else{
+				$query = "SELECT * FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = ".$fid." AND data_id IN(
+							SELECT * FROM (
+								SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE 1 = 1 AND `cf7_id` = ".$fid." 
+									GROUP BY `data_id` ORDER BY ".$cf7d_entry_order_by." LIMIT ".$offset.",".$items_per_page."
+								) 
+							temp_table) 
+							ORDER BY " . $cf7d_entry_order_by;
+
+			}
+			
 			//Get total entries information
 			$arr_total = $wpdb->get_results("SELECT data_id FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` WHERE `cf7_id` = " .$fid . " ".((!empty($search)) ? "AND `value` LIKE '%%".$search."%%'" : "")." GROUP BY `data_id`");
 		}
@@ -228,7 +298,7 @@ else{
 		//Form listing design structure start here
 		?><div class="wrap our-class">
 			<form class="vsz-cf7-listing row" action="<?php print esc_url($url);?>" method="post" id="cf7d-admin-action-frm" >
-				<input type="hidden" name="page" value="cf7-data">
+				<input type="hidden" name="page" value="contact-form-listing">
 				<input type="hidden" name="fid" value="<?php echo $fid; ?>">
 				<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('vsz-cf7-action-nonce'); ?>"><?php
 					//Display setting screen button
@@ -317,18 +387,19 @@ else{
 										foreach ($fields as $k2 => $v2) {
 											//Get fields related values
 											$_value = ((isset($v[$k2])) ? $v[$k2] : '&nbsp;');
+											$_value1 = filter_var($_value, FILTER_SANITIZE_URL);
 											
 											//Check value is URL or not
-											if (!filter_var($_value, FILTER_VALIDATE_URL) === false) {
+											if (!filter_var($_value1, FILTER_VALIDATE_URL) === false) {
 												$_value = esc_url($_value);
 												//If value is url then setup anchor tag with value
 												if(!empty($arr_field_type_info) && array_key_exists($k2,$arr_field_type_info) && $arr_field_type_info[$k2] == 'file'){
 													//Add download attributes in tag if field type is attachement
-													$_value = sprintf('<a href="%s" target="_blank" title="%s" download >%s</a>', $_value,$_value,basename($_value));
+													$_value = '<a href="'.$_value.'" target="_blank" title="'.$_value.'" download >'.basename($_value).'</a>';
 													echo '<td data-head="'.vsz_cf7_admin_get_field_name($v2).'">'.$_value.'</td>';
 												}
 												else{
-													$_value = sprintf('<a href="%s" target="_blank" title="%s" >%s</a>', $_value,$_value,basename($_value));
+													$_value = '<a href="'.$_value.'" target="_blank" title="'.$_value.'" >'.basename($_value).'</a>';
 													echo '<td data-head="'.vsz_cf7_admin_get_field_name($v2).'">'.$_value.'</td>';
 												}
 											}

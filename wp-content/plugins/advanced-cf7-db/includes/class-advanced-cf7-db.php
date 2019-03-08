@@ -118,12 +118,17 @@ class Advanced_Cf7_Db {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-advanced-cf7-db-admin.php';
-
+		
+		/*
+		*** For dom pdf
+		*/
+		// require_once(dirname(dirname(__FILE__)).'/admin/pdfgenerate/dompdf/src/Dompdf.php');
+		
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-advanced-cf7-db-public.php';
 
 		$this->loader = new Advanced_Cf7_Db_Loader();
 
@@ -205,7 +210,11 @@ class Advanced_Cf7_Db {
 		// Provide custom capability
 		$this->loader->add_action('save_post',$plugin_admin,'vsz_cf7_create_role_for_contact_form');
 		
+		// Edit Popup file upload
+		$this->loader->add_action('wp_ajax_acf7_db_edit_scr_file_upload',$plugin_admin,'vsz_acf7_db_edit_scr_file_upload');
 		
+		// Edit Popup file delete
+		$this->loader->add_action('wp_ajax_acf7_db_edit_scr_file_delete',$plugin_admin,'vsz_acf7_db_edit_scr_file_delete');
 	}
 
 	/**
@@ -216,8 +225,14 @@ class Advanced_Cf7_Db {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
 		
+		$plugin_public = new Advanced_Cf7_Db_Public( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		
+		// Register shortcode
+		$this->loader->add_action( 'after_setup_theme',$plugin_public,'vsz_acf7_db_register_shortcode' );
 
 	}
 

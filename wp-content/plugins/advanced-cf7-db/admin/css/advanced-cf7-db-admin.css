@@ -140,7 +140,7 @@
     width:100%;
     display:inline-block;
 }
- 
+
 /*----- Tab Links -----*/
 /* Clearfix */
 .tabs ul.tab-links {
@@ -180,7 +180,7 @@
 	outline:none;
 	box-shadow:none;
 }
-.tab-links li:hover a {color:#ffffff;}		
+.tab-links li:hover a {color:#ffffff;}
 .tab-links li.active a {
     background: none;
     cursor: default;
@@ -228,7 +228,7 @@
 }
 .our-class .date-filter.from-to .button,.our-class .type-something .button{
     display: inline-block;
-	border: 1px solid #0073aa;	
+	border: 1px solid #0073aa;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.42857;
@@ -243,7 +243,7 @@
 }
 .bulk-actions .button{
 	display: inline-block;
-	border: 1px solid #ccc;	
+	border: 1px solid #ccc;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.42857;
@@ -260,7 +260,7 @@
 	border: 1px solid #000;
 }
 .our-class .date-filter.from-to .button:hover,.our-class .type-something .button:hover{
-	border: 1px solid #000;	
+	border: 1px solid #000;
 	background-color: #000;
 	color:#fff;
 }
@@ -438,7 +438,7 @@ h2.advanced span{
 }
 .display-setup a.button.action.thickbox.right:hover{
 	background-color: #000;
-    border: 1px solid #000;	
+    border: 1px solid #000;
 }
 .select-specific .form-table.inner-row{
 	margin-top:0px;
@@ -456,7 +456,7 @@ h2.advanced span{
 	margin-top:15px;
 	display:block;
 	color:#f00f39;
-	
+
 }
 .form-table.field-setting,.form-table.field-setting td{
 	padding:10px;
@@ -541,7 +541,7 @@ h3.advanced {
 }
 .wrap .display-setup .page-title-action{
 	display: inline-block;
-	border: 1px solid #0073aa;	
+	border: 1px solid #0073aa;
     font-size: 14px;
     font-weight: normal;
     line-height: 21px;
@@ -557,18 +557,24 @@ h3.advanced {
 	width:783px !important;
 }
 .import-csv .upload-csv label{padding-left:30px;}
+.wrap.select-specific.shortcodes span.code{
+	color: #ff4545;
+}
 @media(max-width:1082px){
 .from-to-date-search {
 	display:block;
 	margin:0 0 15px 0;
 }
-	
+
 }
 @media(max-width:782px){
 	.cf7d-admin-table tr:not(.inline-edit-row):not(.no-items) td:not(.check-column) {
-	display:table-cell;
-	word-wrap: break-word;
-}
+		display:table-cell;
+		word-wrap: break-word;
+	}
+	#cf7d-modal-footer, .cf7d-modal-footer{
+		position: fixed;
+	}
 }
 @media(max-width:520px){
 .from-to-date-search .input-cf-date {
@@ -576,9 +582,112 @@ h3.advanced {
 	margin:0 0px 5px !important;}
 }
 @media(max-width:400px){
-.type-something { margin-right:0px;}	
+.type-something { margin-right:0px;}
 .date-filter .reset-class {
 	margin-top: 10px;
 	float: none;
 }
+}
+
+/*	New Tab Structure	*/
+/* Style the tab */
+#acf7db-support-page .tab {
+	display: block;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+}
+/* Style the buttons that are used to open the tab content */
+#acf7db-support-page .tab span {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+/* Change background color of buttons on hover */
+#acf7db-support-page .tab span:hover {
+   color: #0073aa;
+}
+/* Create an active/current tablink class */
+#acf7db-support-page .tab span.active {
+    background-color: #0073aa;
+	color: #FFF;
+}
+/* Style the tab content */
+#acf7db-support-page .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: #FFF;
+}
+#acf7db-support-page.select-specific table th{
+	padding: 10px !important;
+	vertical-align: middle;
+}
+#acf7db-support-page.select-specific table.action-tbl th{
+	width: 280px;
+}
+.display_enquiry_table_class thead tr th:first-child{
+	width: 100px;
+}
+.form-table td p:first-child{
+	margin-top: 0px;
+}
+#acf7db-support-page.select-specific table td{
+	padding: 10px !important;
+}
+.form-table.widefat .description{
+	color: #ff0000;
+}
+/* PHP Code */
+.code-php { border: 1px solid #c5c5c5; background-color: #f1f1f1; padding: 0 10px; }
+#acf7db-support-page.select-specific .code-php .php{
+	white-space: pre-wrap;
+}
+.php  {font-family:monospace;}
+.php .imp {font-weight: bold; color: red;}
+.php .kw1 {color: #b1b100;}
+.php .kw2 {color: #000000; font-weight: bold;}
+.php .kw3 {color: #990000;}
+.php .kw4 {color: #009900; font-weight: bold;}
+.php .co1 {color: #666666; font-style: italic;}
+.php .co2 {color: #666666; font-style: italic;}
+.php .co3 {color: #0000cc; font-style: italic;}
+.php .co4 {color: #009933; font-style: italic;}
+.php .coMULTI {color: #666666; font-style: italic;}
+.php .es0 {color: #000099; font-weight: bold;}
+.php .es1 {color: #000099; font-weight: bold;}
+.php .es2 {color: #660099; font-weight: bold;}
+.php .es3 {color: #660099; font-weight: bold;}
+.php .es4 {color: #006699; font-weight: bold;}
+.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php .es6 {color: #009933; font-weight: bold;}
+.php .es_h {color: #000099; font-weight: bold;}
+.php .br0 {color: #009900;}
+.php .sy0 {color: #339933;}
+.php .sy1 {color: #000000; font-weight: bold;}
+.php .st0 {color: #0000ff;}
+.php .st_h {color: #0000ff;}
+.php .nu0 {color: #cc66cc;}
+.php .nu8 {color: #208080;}
+.php .nu12 {color: #208080;}
+.php .nu19 {color:#800080;}
+.php .me1 {color: #004000;}
+.php .me2 {color: #004000;}
+.php .re0 {color: #000088;}
+.php span.xtra { display:block; }
+.display_enquiry_table_class.form-table.bordered.widefat.fixed{
+	border: 1px solid #dfdfdf;
+	border-collapse: separate;
+}
+.display_enquiry_table_class.form-table.bordered.widefat.fixed th, .display_enquiry_table_class.form-table.bordered.widefat.fixed td{
+	border: 1px solid #dfdfdf;
+}
+.display_enquiry_table_class.form-table.bordered.widefat.fixed thead .table-head-type{
+	background-color:#0073AA;
+	color: #fff;
 }
