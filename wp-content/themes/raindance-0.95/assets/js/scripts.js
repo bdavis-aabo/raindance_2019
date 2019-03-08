@@ -160,7 +160,7 @@ $(document).ready(function(){
 	$('.festival-btn').click(function(){
 		var target = $(this).attr('data-target');
 		$('.overlay-mask').addClass('mask-visible');
-		$('#'+target).delay(1000).queue('fx', function(){ $(this).addClass('visible'); });
+		$('#'+target).delay(1000).addClass('visible');
 	});
 
 	$('.box-close').click(function(){ closeFestivalBox(); });
