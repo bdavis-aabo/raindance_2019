@@ -130,11 +130,11 @@ $(document).ready(function(){
     $('body,html').css('overflow','auto');
   }
 
-	if(window.location.pathname === '/'){
-		setTimeout(function(){
-			displayLightbox();
-		}, 5000);
-	}
+	// if(window.location.pathname === '/'){
+	// 	setTimeout(function(){
+	// 		displayLightbox();
+	// 	}, 5000);
+	// }
 
   $('.close-btn').click(function(){ closeLightbox(); });
 
@@ -150,4 +150,26 @@ $(document).ready(function(){
 		var hash = window.location.hash;
 		$(hash).modal('show');
 	}
+
+	function closeFestivalBox(){
+		$('.overlay-mask').removeClass('mask-visible');
+		$('.festival-lightbox').removeClass('visible');
+	}
+
+
+	$('.festival-btn').click(function(){
+		var target = $(this).attr('data-target');
+		$('.overlay-mask').addClass('mask-visible');
+		$('#'+target).delay(1000).queue('fx', function(){ $(this).addClass('visible'); });
+	});
+
+	$('.box-close').click(function(){ closeFestivalBox(); });
+	$('.overlay-mask').click(function() { closeFestivalBox(); });
+
+
+
+
+
+
+
 });

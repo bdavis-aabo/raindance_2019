@@ -1,5 +1,13 @@
 @import 'bourbon/bourbon';
 
+@function tint($color, $percentage){
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage){
+  @return mix(black, $color, $percentage);
+}
+
 /***
 	RAINDANCE DESIGN ELEMENTS
 
@@ -32,6 +40,10 @@ $black:			#000000;
 $ltpurple:	#483f94;
 $purple:		#001e5f;
 $tan:				#675f57;
+$red:				#a6353a;
+$green:			#a3cd4c;
+$blue:			#1b75ba;
+
 
 /* GENERIC ELEMENTS */
 body	{ font-family: 'brandon-regular', sans-serif; font-size: $base-font-size; line-height: $base-font-size + $heading-scale; color: $darkgray;
@@ -44,6 +56,11 @@ body	{ font-family: 'brandon-regular', sans-serif; font-size: $base-font-size; l
 .aligncenter, img.aligncenter { margin: 0 auto 15px; display: block; }
 .alignnone, img.alignnone 		{ margin: 0 0 15px; float: none; }
 
+/*** BACKGROUND COLORS ***/
+.green-bg    { background: $green; }
+.ltpurple-bg { background: $ltpurple; }
+.blue-bg     { background: $blue; }
+.red-bg      { background: $red; }
 
 // Heading Sizes, Margins & Styles
 @for $i from 1 through 6 {
@@ -65,9 +82,22 @@ ol,ul 	{ margin: 1.5em 0 1.5em 2em;
 }
 
 /* BUTTONS */
-.btn { border-radius: 4px; text-transform: uppercase; padding-left: 20px; padding-right: 20px; transition: opacity 666ms cubic-bezier(.255,.61,.355,1); display: inline-block;
-	&.purple-btn { color: $white; background: $ltpurple;
-		&:hover  { opacity: .8; }
+.btn { border-radius: 4px; text-transform: uppercase; padding-left: 20px; padding-right: 20px; transition: background 666ms cubic-bezier(.255,.61,.355,1); display: inline-block;
+	&.purple-btn,
+  &.ltpurple-btn { color: $white; background: $ltpurple;
+		&:hover  { background: tint($ltpurple, 5); }
+	}
+	&.green-btn { color: $white; background: $green;
+		&:hover  { background: shade($green, 8); }
+	}
+	&.blue-btn  { color: $white; background: $blue;
+		&:hover  { background: tint($blue, 5); }
+	}
+	&.red-btn   { color: $white; background: $red;
+		&:hover  { background: tint($red, 5); }
+	}
+	&.gray-btn  { color: $white; background: $ltgray;
+		&:hover  { background: tint($ltgray, 5); }
 	}
 }
 .modal-btn { cursor: pointer; }

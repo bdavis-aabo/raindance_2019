@@ -42,6 +42,36 @@
 	}
 }
 
+.lightbox-form {
+	input { margin: 0;
+		&.form-control { border-radius: 0; text-transform: lowercase;}
+	}
+
+	.form-group { float: left; width: 100%; margin-bottom: 15px;
+		label { font-weight: normal; display: block; text-transform: lowercase;
+			&.broker { display: inline; }
+		}
+		input { padding: 4px 8px;
+			&[type='text'],
+			&[type='email'] { border: 1px solid #dcdcdc; }
+		}
+		.one-half { float: left; width: 48%;
+			&.last { float: right; }
+			input, select { width: 100%; }
+
+			.two-third { width: 60%; float: left; }
+			.one-third { width: 35%; float: right; }
+
+			input[type='radio'] { width: 30px; margin-left: -3px; }
+		}
+
+		.full-width {
+			&.form-bottom { text-align: center; }
+			.disclaimer { color: $ltgray; font-size: 0.85em; padding-right: 15%; padding-left: 15%; margin: 25px 0 0; }
+		}
+	}
+}
+
 .broker-fields { display: none; float: left; clear: both; width: 100%;
 	//&.broker-visible { height: 100%; }
 }
@@ -112,7 +142,7 @@
 /* Tablets (iPad Landscape) */
 @media only screen and (max-width : 1024px) {
 	#contactModal,
-	#builderModal {
+	#builderModal, {
 		.modal-dialog { width: 90%; margin: 60px auto; }
 	}
 }
@@ -146,6 +176,14 @@
 						}
 					}
 				}
+			}
+		}
+	}
+	.lightbox-form {
+		.form-group {
+			.one-half { width: 100%; margin-bottom: 5px; }
+			.full-width {
+				.disclaimer { padding-right: 0; padding-left: 0; }
 			}
 		}
 	}

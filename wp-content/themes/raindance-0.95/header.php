@@ -1,4 +1,5 @@
-  <!DOCTYPE html>
+<?php $_host = $_SERVER['HTTP_HOST']; ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -39,22 +40,37 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  <?php if($_host == 'raindancecolorado.com'): ?>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122850031-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-  
+
     gtag('config', 'UA-122850031-1');
   </script>
+  <?php endif; ?>
 
   <?php wp_head() ?>
 </head>
 <body <?php body_class(); ?>>
   <div class="container" id="wrapper">
+
     <header class="header">
+
       <nav class="navbar navbar-default navbar-fixed-top">
+        <?php if(!is_page('grand-opening-festival')): ?>
+        <div class="container alert-container">
+              <div class="alert-box red-bg">
+                <p>
+                  You're invited to our grand opening&nbsp;&nbsp;-&nbsp;&nbsp;<a href="/grand-opening-festival" title="<?php bloginfo('name') ?> - Grand Opening Festival">Check it out here!</a>
+                  <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/wp-content/uploads/2019/03/Raindance_Sweepstakes_Rules.pdf" target="_blank" class="rules"><em>Click for official sweepstakes rules</em></a>
+                </p>
+              </div>
+        </div>
+        <?php endif; ?>
         <div class="container nav-container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">

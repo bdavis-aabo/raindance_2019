@@ -17,6 +17,16 @@
 /*** HEADER ***/
 .header {
 	.navbar { background: transparent; margin-bottom: 0; border: none; border-radius: 0; min-height: 80px;
+		.alert-container { padding: 0; height: 40px; background: pink;
+		.alert-box { text-align: center; text-transform: uppercase;
+			&.red-bg { background: $red }
+			p, a { color: $white; }
+			p { padding-top: 7px; padding-bottom: 10px; }
+			a {
+				em { font-family: 'brandon-regular', sans-serif; }
+			}
+		}
+	}
 		.nav-container { background: $white; box-shadow: 0 1px 5px rgba(0,0,0,0.2);
 			.navbar-nav { text-transform: uppercase; font-family: 'brandon-medium', sans-serif; margin: .5% 10px 0 0;
 				li { padding: 10px 0;
@@ -104,7 +114,9 @@
 }
 
 /*** COMMUNITY PAGE STYLES ***/
-.page-heroimage { }
+.page-heroimage { padding-top: 0; position: relative;
+	.festival-logo { position: absolute; z-index: 1; top: 100px; right: 0; }
+}
 .page-contents { padding: 35px 0 250px;
 	.content-section { font-size: 16px; line-height: 26px;
 		h1 { font-family: 'brandon-medium', sans-serif; color: $ltpurple; text-transform: uppercase; font-size: 2em;
@@ -120,6 +132,35 @@
 			.modal-btn { font-family: 'selfie', sans-serif; font-size: 2em; text-decoration: none; font-style: none; }
 		}
 	}
+	&.festival-contents {
+		.content-section { padding-left: 60px; width: 50%; }
+		.btn { display: inline-block; padding: 12px 25px; color: $white; text-decoration: none; font-family: 'brandon-bold', sans-serif; border-radius: 0; margin-bottom: 15px;
+			&.festival-btn { border-radius: 0; width: 100%; height: 150px; display: block; font-size: 1.75em; white-space: normal;
+			}
+			&.full-btn { min-height: 60px; width: 100%; font-size: 1.75em; white-space: normal; }
+		}
+		.builder-logos { margin: 5vh 0; }
+	}
+}
+.overlay-mask { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,.85); z-index: 9998; opacity: 0; visibility: hidden;
+	transition: opacity 666ms ease-in-out;
+	&.mask-visible { visibility: visible; opacity: 1; }
+}
+.festival-lightbox { position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 80vw; z-index: 9999; visibility: hidden; opacity: 0; background: white;
+	transition: opacity 1s ease-in-out;
+	&.visible { visibility: visible; opacity: 1; }
+	.lightbox-titlebar { font-size: 4em; color: $white; font-family: 'brandon-bold', sans-serif; text-align: center; text-transform: uppercase; float: left; width: 100%;
+		padding: 3.5% 0; }
+	.lightbox-contents { padding: 5%; font-size: 1.2em; clear: both;
+		ul,ol {
+			li { padding: 10px 0; }
+		}
+		em { font-size: .8em; }
+		a { color: $ltpurple; }
+		.purple-txt { font-family: 'selfie', sans-serif; color: $ltpurple; font-size: 4em; }
+	}
+
+	.box-close { position: absolute; right: -30px; top: -30px; color: $white; font-size: 2em; cursor: pointer; }
 }
 
 /*** ACCESS PAGE STYLES ***/
@@ -253,6 +294,9 @@
 			}
 		}
 	}
+	.page-heroimage {
+		.festival-logo { position: absolute; z-index: 1; top: 100px; right: 0; width: 60%; }
+	}
 	.page-contents {
 		.content-section {
 			h1 { font-size: 1.75em;
@@ -261,6 +305,24 @@
 			h2 { font-size: 1.75em; }
 			.content-grid { padding-top: 25px; padding-bottom: 25px; }
 		}
+		&.festival-contents {
+			.btn {
+				&.festival-btn { font-size: 1.25em;
+				}
+			}
+			.builder-logos { margin: 5vh 0; }
+		}
+	}
+	.festival-lightbox { height: 90vh; overflow-y: scroll;
+		.lightbox-titlebar { font-size: 2.5em; }
+		.lightbox-contents { padding: 2%; font-size: 1em; clear: both;
+			ul,ol {
+				li { padding: 5px 0; }
+			}
+			em { font-size: .8em; }
+			a { color: $ltpurple; }
+		}
+		.box-close { right: 10px; top: 10px; }
 	}
 	/*** BUILDER GRID PAGE ***/
 	.builder-list {
@@ -307,6 +369,12 @@
 
 	.header {
 		.navbar {
+			.alert-container {
+				.alert-box {
+					p { font-size: .9em; }
+				}
+			}
+
 			.navbar-header { height: 100%; min-height: 80px;
 				.navbar-toggle { margin-top: 22px; }
 			}
@@ -323,7 +391,9 @@
 			.navbar-collapse { border-top: none; }
 		}
 	}
-	.page-heroimage { padding-top: 35px; }
+	.page-heroimage { padding-top: 35px; position: initial;
+		.festival-logo { width: 50%; right: 50px; }
+	}
 
 	/*** BUILDER GRID PAGE ***/
 	.builder-list {
@@ -342,6 +412,22 @@
 			}
 		}
 	}
+	.page-contents {
+		&.festival-contents {
+			.content-section { padding-left: 30px; width: 70%; }
+		}
+	}
+	.festival-lightbox { height: 90vh; overflow-y: scroll;
+		.lightbox-titlebar { font-size: 2em; }
+		.lightbox-contents { padding: 2%; font-size: 1em; clear: both;
+			ul,ol {
+				li { padding: 5px 0; }
+			}
+			em { font-size: .8em; }
+			a { color: $ltpurple; }
+		}
+		.box-close { font-size: 1.5em; }
+	}
 }
 // @media only screen and (min-width: 768px){
 // 	.navbar-right { float: right;
@@ -355,6 +441,11 @@
 @media only screen and (max-width : 667px) {
 	.header {
 		.navbar {
+			.alert-container {
+				.alert-box { white-space: normal;
+					p { font-size: .8em; }
+				}
+			}
 			.navbar-header {
 				.navbar-brand {
 					img { width: 200px; }
@@ -393,7 +484,10 @@
 		}
 	}
 
-	.page-heroimage { padding-top: 0px; }
+	.page-heroimage { padding-top: 0px;
+		.festival-logo { display: none; }
+	}
+
 	.page-contents,
 	.builder-list { padding-bottom: 50px; }
 	/*** BUILDER GRID PAGE ***/
@@ -414,6 +508,22 @@
 				}
 			}
 		}
+	}
+	.page-contents {
+		&.festival-contents {
+			.content-section { padding-left: 30px; width: 100%; }
+		}
+	}
+	.festival-lightbox {
+		.lightbox-titlebar { font-size: 1.2em; }
+		.lightbox-contents { padding: 2%; font-size: .95em; clear: both;
+			ul,ol { padding-left: 0;
+				li { padding: 5px 0; }
+			}
+			em { font-size: .8em; }
+			a { color: $ltpurple; }
+		}
+		.box-close { font-size: 1.2em; }
 	}
 
 	.navbar-footer { transform: translate3d(0,0,0); border: none; margin-bottom: 0;
@@ -438,6 +548,14 @@
 @media only screen and (max-width: 375px) {
 	.header{
 		.navbar {
+			.alert-container {
+				.alert-box {
+					p { font-size: .7em; line-height: 1.4em;
+						span { display: none; }
+						a.rules { display: block; }
+					}
+				}
+			}
 			.nav-container {
 				.navbar-header {
 					.navbar-brand {
@@ -465,6 +583,14 @@
 	}
 
 	.page-heroimage { padding-top: 0; }
+
+	.page-contents {
+		&.festival-contents {
+			.content-section { padding-left: 0;
+				ul { margin-left: 0; }
+			}
+		}
+	}
 
 	.navbar-footer { transform: translate3d(0,0,0); border: none; margin-bottom: 0;
 		.container {
