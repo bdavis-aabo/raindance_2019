@@ -1260,7 +1260,7 @@ ol, ul {
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 375px) {
   .header .navbar .alert-container {
-    height: 60px; }
+    height: 65px; }
     .header .navbar .alert-container .alert-box {
       height: 100%; }
       .header .navbar .alert-container .alert-box p {
