@@ -737,6 +737,9 @@ ol, ul {
     font-size: 4em;
     width: 80%; }
 
+.modal-backdrop.in {
+  opacity: 0 !important; }
+
 /*** BUILDER GRID PAGE ***/
 .builder-contents {
   padding-bottom: 40px; }

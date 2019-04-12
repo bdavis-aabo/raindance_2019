@@ -166,7 +166,14 @@ $(document).ready(function(){
 	$('.box-close').click(function(){ closeFestivalBox(); });
 	$('.overlay-mask').click(function() { closeFestivalBox(); });
 
-
+	var modalTarget = document.location.hash.replace('#','');
+	if(modalTarget.length){
+		if(modalTarget == 'festival_map'){
+			$('.overlay-mask').addClass('mask-visible');
+			$('.modal-backdrop.in').css('opacity',0);
+			$('#modal-3').modal('show').addClass('visible');
+		}
+	}
 
 
 

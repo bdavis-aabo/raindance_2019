@@ -63,6 +63,7 @@
 
 }
 
+
 /*** MARKETING SECTIONS ***/
 .homepage-heroimage { margin-top: 78px; }
 .homepage-section { position: relative;
@@ -174,6 +175,9 @@
 			}
 		}
 	}
+}
+.modal-backdrop {
+	&.in { opacity: 0 !important; }
 }
 
 /*** BUILDER GRID PAGE ***/
